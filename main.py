@@ -174,23 +174,16 @@ _________________________________________________
             await message.answer_photo(photo=file)
             file.close()
         card = \
-            f'|-----------------------------------\n' \
+            f'|----------------------------------\n' \
             f'|\n' \
-            f'|<b>----> URL:</b> {url}\n' \
-            f'|\n' \
-            f'|<b>----> Отсутствие перенаправлений:</b> {krestik if result["redirect"] == True else galochka}\n' \
-            f'|\n' \
-            f'|<b>----> Поддержка https:</b> {galochka if result["https"] == True else krestik}\n' \
-            f'|\n' \
-            f'|<b>----> Наличие SSL сертификата:</b> {galochka if result["ssl"] == True else krestik}\n' \
-            f'|\n' \
-            f'|<b>----> Не пародирует известные домены:</b> {krestik if result["suspicious"] == True else galochka}\n' \
-            f'|\n' \
-            f'|<b>----> Отсутствие подозрительного JS код:</b> {krestik if result["suspicious_js"] == True else galochka}\n' \
-            f'|\n' \
-            f'|<b>----> Нормальное количество доменных уровней:</b> {krestik if result["Long level"] == True else galochka}\n' \
-            f'|\n' \
-            f'|<b>----> Читаемый домен:</b> {krestik if result["Unreadability"] == True else galochka}\n' \
+            f'|<b>----> URL:</b> {domain}\n' \
+            f'|<b>----> Перенаправления:</b>     {krestik if result["redirect"] == True else galochka}\n' \
+            f'|<b>----> Поддержка https:</b>          {galochka}\n' \
+            f'|<b>----> SSL сертификат:</b>              {galochka if result["ssl"] == True else krestik}\n' \
+            f'|<b>----> Известный домен:</b>           {krestik if result["suspicious"] == True else galochka}\n' \
+            f'|<b>----> Подозрительный JS код:</b> {krestik if result["suspicious_js"] == False else galochka}\n' \
+            f'|<b>----> Доменные уровни:</b>           {krestik if result["Long level"] == True else galochka}\n' \
+            f'|<b>----> Читаемый домен:</b>           {krestik if result["Unreadability"] == True else galochka}\n' \
             f'|\n' \
             f'|----------------------------------'
         await message.reply(card, reply=False)
@@ -207,29 +200,21 @@ _________________________________________________
                 file.close()
                 await message.reply(
                     """
-🔒 <b> ССЫЛКА ИМЕЕТ ПРОТОКОЛ https! </b> 🔒
-⚠️ <b> Не удалось подключиться к протоколу https </b> ⚠️
-🖥 <b> Идёт замена протокола на http... 🖥</b>
+<b>⚠️Найден запрет к протоколу https⚠️</b>
+<b>🖥Идёт замена протокола на http...🖥</b>
                     """, parse_mode='HTML', reply=False)
                 time.sleep(2)
             card = \
-                f'|-----------------------------------\n' \
+                f'|----------------------------------\n' \
                 f'|\n' \
                 f'|<b>----> URL:</b> {domain}\n' \
-                f'|\n' \
-                f'|<b>----> Отсутствие перенаправлений:</b> {krestik if result["redirect"] == True else galochka}\n' \
-                f'|\n' \
-                f'|<b>----> Поддержка https:</b> {galochka}\n' \
-                f'|\n' \
-                f'|<b>----> Наличие SSL сертификата:</b> {galochka if result["ssl"] == True else krestik}\n' \
-                f'|\n' \
-                f'|<b>----> Не пародирует известные домены:</b> {krestik if result["suspicious"] == True else galochka}\n' \
-                f'|\n' \
-                f'|<b>----> Отсутствие подозрительного JS код:</b> {krestik if result["suspicious_js"] == True else galochka}\n' \
-                f'|\n' \
-                f'|<b>----> Нормальное количество доменных уровней:</b> {krestik if result["Long level"] == True else galochka}\n' \
-                f'|\n' \
-                f'|<b>----> Читаемый домен:</b> {krestik if result["Unreadability"] == True else galochka}\n' \
+                f'|<b>----> Перенаправления:</b>     {krestik if result["redirect"] == True else galochka}\n' \
+                f'|<b>----> Поддержка https:</b>          {galochka}\n' \
+                f'|<b>----> SSL сертификат:</b>              {galochka if result["ssl"] == True else krestik}\n' \
+                f'|<b>----> Известный домен:</b>           {krestik if result["suspicious"] == True else galochka}\n' \
+                f'|<b>----> Подозрительный JS код:</b> {krestik if result["suspicious_js"] == False else galochka}\n' \
+                f'|<b>----> Доменные уровни:</b>           {krestik if result["Long level"] == True else galochka}\n' \
+                f'|<b>----> Читаемый домен:</b>           {krestik if result["Unreadability"] == True else galochka}\n' \
                 f'|\n' \
                 f'|----------------------------------'
             await message.reply(card, parse_mode="HTML", reply=False)
@@ -237,43 +222,37 @@ _________________________________________________
         except:
             await message.reply(
                 """
-|-------------------------------------------------
-|
-|                                  ⚠️⚠️⚠️
-|                     
-|--<b>🔴НЕ УДАЛОСЬ РАСПОЗНАТЬ URL🔴</b>--
-|
-|          <b>◼️ Причиной может быть: ◼️</b>
+|----------------------------------
+|                ⚠️⚠️⚠️
+|----------------------------------                
+|        <b>ОШИБКА URL</b>
+|----------------------------------
+|   <b>Причиной может быть:</b>
+|----------------------------------
 |
 |---> 1️⃣ - Не существующий домен
 |
-|---> 2️⃣ - Не указан протокол подключения
+|---> 2️⃣ - Не указан протокол
 |
 |---> 3️⃣ - Ссылка является локальной
 |
-|--------------------------------------------------
+|----------------------------------
                 """, parse_mode='HTML', reply=False)
             await state.reset_state()
 
+@dp.callback_query_handler(text="Loading...")
+async def animation_handler(query: CallbackQuery):
+    for i in range(110):
+        await query.message.edit_text(text=f"{i}%")
+        await asyncio.sleep(0.2)
 
 @dp.message_handler(state=TestStates.QR_STATE[0], content_types=['photo'])
 async def solution_QRcode(message: types.Message, state: FSMContext):
     await message.reply("📎 Изображение скачивается... 📎 ", reply=False)
-    time.sleep(1)
     await message.photo[-1].download('src/img.png')
-    time.sleep(1)
+    await message.reply('Loading...', reply=False)
     try:
         url = get_link_qr_code()
-        await message.reply("""
-_________________________________________________
-🔻                                           🔻                                     🔻
-                                            
- Пожалуйста, подождите, идет проверка ссылки...
-   
-🔺                                           🔺                                     🔺                                  
-_________________________________________________
-            """, reply=False)
-        time.sleep(1)
         try:
             with open('img_3.png', 'rb') as file:
                 file.seek(0)
@@ -285,23 +264,16 @@ _________________________________________________
             result = check_link(domain)
             galochka, krestik = '✅', '❌'
             card = \
-                f'|-----------------------------------\n' \
+                f'|----------------------------------\n' \
                 f'|\n' \
-                f'|<b>----> URL:</b> {url}\n' \
-                f'|\n' \
-                f'|<b>----> Отсутствие перенаправлений:</b> {krestik if result["redirect"] == True else galochka}\n' \
-                f'|\n' \
-                f'|<b>----> Поддержка https:</b> {galochka if result["https"] == True else krestik}\n' \
-                f'|\n' \
-                f'|<b>----> Наличие SSL сертификата:</b> {galochka if result["ssl"] == True else krestik}\n' \
-                f'|\n' \
-                f'|<b>----> Не пародирует известные домены:</b> {krestik if result["suspicious"] == True else galochka}\n' \
-                f'|\n' \
-                f'|<b>----> Отсутствие подозрительного JS код:</b> {krestik if result["suspicious_js"] == True else galochka}\n' \
-                f'|\n' \
-                f'|<b>----> Нормальное количество доменных уровней:</b> {krestik if result["Long level"] == True else galochka}\n' \
-                f'|\n' \
-                f'|<b>----> Читаемый домен:</b> {krestik if result["Unreadability"] == True else galochka}\n' \
+                f'|<b>----> URL:</b> {domain}\n' \
+                f'|<b>----> Перенаправления:</b>     {krestik if result["redirect"] == True else galochka}\n' \
+                f'|<b>----> Поддержка https:</b>          {galochka}\n' \
+                f'|<b>----> SSL сертификат:</b>              {galochka if result["ssl"] == True else krestik}\n' \
+                f'|<b>----> Известный домен:</b>           {krestik if result["suspicious"] == True else galochka}\n' \
+                f'|<b>----> Подозрительный JS код:</b> {krestik if result["suspicious_js"] == False else galochka}\n' \
+                f'|<b>----> Доменные уровни:</b>           {krestik if result["Long level"] == True else galochka}\n' \
+                f'|<b>----> Читаемый домен:</b>           {krestik if result["Unreadability"] == True else galochka}\n' \
                 f'|\n' \
                 f'|----------------------------------'
             await message.reply(card, reply=False)
@@ -311,58 +283,51 @@ _________________________________________________
                 time.sleep(2)
                 parsed_url = urlparse(url)
                 domain = 'http://' + parsed_url.netloc + parsed_url.path
+                site = 'https://' + parsed_url.netloc
                 result = check_link(domain)
                 galochka, krestik = '✅', '❌'
                 await message.reply(
                     """
-🔒 <b> ССЫЛКА ИМЕЕТ ПРОТОКОЛ https! </b> 🔒
-⚠️ <b> Не удалось подключиться к протоколу https </b> ⚠️
-🖥 <b> Идёт замена протокола на http... 🖥</b>
+<b>⚠️Найден запрет к протоколу https⚠️</b>
+<b>🖥Идёт замена протокола на http...🖥</b>
                     """, parse_mode='HTML', reply=False)
                 time.sleep(2)
                 card = \
-                    f'|-----------------------------------\n' \
+                    f'|----------------------------------\n' \
                     f'|\n' \
-                    f'|<b>----> URL:</b> {domain}\n' \
-                    f'|\n' \
-                    f'|<b>----> Отсутствие перенаправлений:</b> {krestik if result["redirect"] == True else galochka}\n' \
-                    f'|\n' \
-                    f'|<b>----> Поддержка https:</b> {galochka}\n' \
-                    f'|\n' \
-                    f'|<b>----> Наличие SSL сертификата:</b> {galochka if result["ssl"] == True else krestik}\n' \
-                    f'|\n' \
-                    f'|<b>----> Не пародирует известные домены:</b> {krestik if result["suspicious"] == True else galochka}\n' \
-                    f'|\n' \
-                    f'|<b>----> Отсутствие подозрительного JS код:</b> {krestik if result["suspicious_js"] == True else galochka}\n' \
-                    f'|\n' \
-                    f'|<b>----> Нормальное количество доменных уровней:</b> {krestik if result["Long level"] == True else galochka}\n' \
-                    f'|\n' \
-                    f'|<b>----> Читаемый домен:</b> {krestik if result["Unreadability"] == True else galochka}\n' \
+                    f'|<b>----> URL:</b> {site}\n' \
+                    f'|<b>----> Перенаправления:</b>     {krestik if result["redirect"] == True else galochka}\n' \
+                    f'|<b>----> Поддержка https:</b>          {galochka}\n' \
+                    f'|<b>----> SSL сертификат:</b>              {galochka if result["ssl"] == True else krestik}\n' \
+                    f'|<b>----> Известный домен:</b>           {krestik if result["suspicious"] == True else galochka}\n' \
+                    f'|<b>----> Подозрительный JS код:</b> {krestik if result["suspicious_js"] == True else galochka}\n' \
+                    f'|<b>----> Доменные уровни:</b>           {krestik if result["Long level"] == True else galochka}\n' \
+                    f'|<b>----> Читаемый домен:</b>           {krestik if result["Unreadability"] == True else galochka}\n' \
                     f'|\n' \
                     f'|----------------------------------'
-                await message.reply(card, reply=False)
+                await message.reply(card, parse_mode='HTML', reply=False)
                 await state.reset_state()
             except:
-                await message.reply("⚠️ Ссылка в QR-коде некорректная... ⚠️", reply=False)
+                await message.reply("<b>⚠️ Ссылка в QR-коде некорректная... ⚠️</b>", parse_mode='HTML', reply=False)
                 await state.reset_state()
     except:
         await message.reply(
             """
-|-------------------------------------------------
-|
-|                                        ⚠️⚠️⚠️
-|                     
-|--<b>🔴НЕ УДАЛОСЬ РАСПОЗНАТЬ QR-КОД🔴</b>--
-|
-|                <b>◼️ Причиной может быть: ◼️</b>
+|----------------------------------
+|                ⚠️⚠️⚠️
+|----------------------------------                
+|       <b>ОШИБКА QR-КОДА</b>
+|----------------------------------
+|   <b>Причиной может быть:</b>
+|----------------------------------
 |
 |---> 1️⃣ - Плохое качество картинки
 |
-|---> 2️⃣ - QR-кода недействителен
+|---> 2️⃣ - QR-код недействителен
 |
-|---> 3️⃣ - Недопустимый формат шифрования QR-кода
+|---> 3️⃣ - Недопустимый формат
 |
-|--------------------------------------------------
+|----------------------------------
             """, parse_mode='HTML', reply=False)
         await state.reset_state()
 

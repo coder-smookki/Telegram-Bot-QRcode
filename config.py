@@ -7,7 +7,10 @@ import time
 from urllib.parse import urlparse
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
+from aiogram.types import CallbackQuery
+import asyncio
 from aiogram.utils import executor
+from aiogram.types import ChatActions
 
 TOKEN = '' #Сюда вы пишите свой токен. Узнать его можно в @BotFather
 bot = Bot(token=TOKEN, parse_mode=types.ParseMode.HTML)
