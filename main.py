@@ -3,7 +3,8 @@ from src.translate_qr_code import get_link_qr_code
 from src.check_url import check_link
 
 
-@dp.message_handler(commands=['start'], content_types=['photo'], )
+@dp.message_handler(commands=['start'])
+@dp.message_handler(content_types=['photo'])
 @dp.message_handler(Text(equals='Начать 📝'))
 async def process_start_command(message: types.Message):
     Start, URL, QRcode, Backup = 'Начать 📝', 'Отправить URL 👀', 'Загрузить QR_code 🖥', 'Назад ↩️'
